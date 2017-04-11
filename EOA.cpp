@@ -69,6 +69,7 @@ int main() {
 	// calculate the farthest pair of vertices
 	Dist = farthest(n, P);
 	bestDist = n*Dist;
+	
 
 	// populate the starting array for the permutation algorithm
 	A = new int[n];
@@ -81,7 +82,6 @@ int main() {
 
 	// End the chronograph to time the loop
 	auto end = chrono::high_resolution_clock::now();
-
 	// after shuffling them
 	cout << "The Hamiltonian cycle of the minimum length " << endl;
 	print_cycle(n, P, bestSet);
@@ -97,7 +97,7 @@ int main() {
 	delete[] P;
 	delete[] A;
 	delete[] bestSet;
-
+	system("PAUSE");
 	return EXIT_SUCCESS;
 }
 
@@ -143,31 +143,35 @@ void print_perm(int n, int *A, int sizeA, point2D *P, int *bestSet, float &bestD
 	{
 				//for (i = 0; i < sizeA-1; i++)
 				//{
-				//	float temp = sqrt(pow((P[A[i]].x - P[A[i + 1]].x),2) + (pow((P[A[i]].y - P[A[i + 1]].y),2)));
+				//	float temp = sqrtf(pow((P[A[i]].x - P[A[i + 1]].x),2) + (pow((P[A[i]].y - P[A[i + 1]].y),2)));
 				//	dist = dist + temp;
 				//}
-				//float temp = sqrt(pow((P[A[n - 1]].x - P[A[0]].x), 2) + (pow((P[A[n - 1]].y - P[A[0]].y), 2)));
+				//float temp = sqrtf(pow((P[A[sizeA - 1]].x - P[A[0]].x), 2) + (pow((P[A[sizeA - 1]].y - P[A[0]].y), 2)));
 				//dist = dist + temp;
 
-				//for (i = 0; i < sizeA - 1; i++)
-				//{
-				//	float temp = (abs(P[A[i]].x - P[A[i + 1]].x)) + (abs(P[A[i]].y - P[A[i + 1]].y));
-				//	dist = dist + temp;
-				//}
-				//float temp = (abs(P[A[n - 1]].x - P[A[0]].x)) + (abs(P[A[n - 1]].y - P[A[0]].y));
-				//dist = dist + temp;
 				for (i = 0; i < sizeA - 1; i++)
 				{
-					dist += sqrt((P[A[i]].x - P[A[i + 1]].x)*(P[A[i]].x - P[A[i + 1]].x) +
-						(P[A[i]].y - P[A[i + 1]].y)*(P[A[i]].y - P[A[i + 1]].y));
+					float temp = (abs(P[A[i]].x - P[A[i + 1]].x)) + (abs(P[A[i]].y - P[A[i + 1]].y));
+					dist = dist + temp;
 				}
-				dist += sqrt((P[A[0]].x - P[A[n - 1]].x)*(P[A[0]].x - P[A[n - 1]].x) +
-					(P[A[0]].y - P[A[n - 1]].y)*(P[A[0]].y - P[A[n - 1]].y));
+				float temp = (abs(P[A[sizeA - 1]].x - P[A[0]].x)) + (abs(P[A[sizeA - 1]].y - P[A[0]].y));
+				dist = dist + temp;
+			/*	for (i = 0; i < sizeA - 1; i++)
+				{
+					dist += sqrtf((P[A[i]].x - P[A[i + 1]].x)*(P[A[i]].x - P[A[i + 1]].x) + (P[A[i]].y - P[A[i + 1]].y)*(P[A[i]].y - P[A[i + 1]].y));
+				}
+				dist += sqrtf((P[A[0]].x - P[A[n - 1]].x)*(P[A[0]].x - P[A[n - 1]].x) + (P[A[0]].y - P[A[n - 1]].y)*(P[A[0]].y - P[A[n - 1]].y));
+				*/
+
+				//for (i = 0; i < n - 1; i++)
+				//	dist += abs(P[A[i]].x - P[A[i + 1]].x) + abs(P[A[i]].y - P[A[i + 1]].y);
+
+				//dist += abs(P[A[0]].x - P[A[n - 1]].x) + abs(P[A[0]].y - P[A[n - 1]].y);
 
 				if (dist < bestDist)
 				{
 					bestDist = dist;
-					for (i = 0; i < n; i++)
+					for (i = 0; i < sizeA; i++)
 					{
 						bestSet[i] = A[i];
 					}
