@@ -79,10 +79,10 @@ int main() {
 	// calculate the length of the Hamiltonian cycle
 	dist = 0;
 	for (i = 0; i < n - 1; i++)
-		dist += sqrt((P[M[i]].x - P[M[i + 1]].x)*(P[M[i]].x - P[M[i + 1]].x) +
-			(P[M[i]].y - P[M[i + 1]].y)*(P[M[i]].y - P[M[i + 1]].y));
-	dist += sqrt((P[M[0]].x - P[M[n - 1]].x)*(P[M[0]].x - P[M[n - 1]].x) +
-		(P[M[0]].y - P[M[n - 1]].y)*(P[M[0]].y - P[M[n - 1]].y));
+		dist += abs(P[M[i]].x - P[M[i + 1]].x) + abs(P[M[i]].y - P[M[i + 1]].y);
+
+	dist += abs(P[M[0]].x - P[M[n - 1]].x) + abs(P[M[0]].y - P[M[n - 1]].y);
+
 	// End the chronograph to time the loop
 	auto end = chrono::high_resolution_clock::now();
 	// after shuffling them
@@ -109,7 +109,7 @@ int farthest_point(int n, point2D *P)
 
 	for (i = 0; i < n - 1; i++)
 		for (j = 0; j < n; j++) {
-			dist = (P[i].x - P[j].x)*(P[i].x - P[j].x) + (P[i].y - P[j].y)*(P[i].y - P[j].y);
+			dist = abs(P[i].x - P[j].x) + abs(P[i].y - P[j].y);
 			if (max_dist < dist)
 			{
 				max_dist = dist;
@@ -121,20 +121,20 @@ int farthest_point(int n, point2D *P)
 int nearest(int n, point2D *P, int A, bool *Visited)
 // function to calculate the nearest unvisited neighboring point
 {
-	float min_dist = 100, dist = 0; 
-	int index = 0; 
+	float min_dist = 100, dist = 0;
+	int index = 0;
 	for (int i = 0; i < n; i++)
 	{
-		dist = (P[A].x - P[i].x)*(P[A].x - P[i].x) + (P[A].y - P[i].y)*(P[A].y - P[i].y);
-		if((dist < min_dist) && !Visited[i])
+		dist = abs(P[i].x - P[A].x) + abs(P[i].y - P[A].y);
+		if ((dist < min_dist) && !Visited[i])
 		{
 			min_dist = dist;
 			index = i;
 		}
-			
+
 	}
-	
-		return index;
+
+	return index;
 }
 void print_cycle(int n, point2D* P, int* M)
 {
