@@ -26,9 +26,9 @@ int main() {
 	point2D *P;
 	int *M;
 	bool *Visited;
-	int i, n;
-	float dist;
-	int A, B;
+	int i = 0, n;
+	float dist = 0;
+	int A = 0, B = 0;
 	// display the header
 	cout << endl << "CPSC 335-01 - Programming Assignment #3" << endl;
 	cout << "Euclidean traveling salesperson problem: exhaustive optimization algorithm" << endl;
