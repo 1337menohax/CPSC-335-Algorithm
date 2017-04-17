@@ -31,7 +31,7 @@ int main() {
 	int A, B;
 	// display the header
 	cout << endl << "CPSC 335-01 - Programming Assignment #3" << endl;
-	cout << "Euclidean traveling salesperson problem: exhaustive optimization algorithm" << endl;
+	cout << "Euclidean traveling salesperson problem: improved nearest neighbor algorithm" << endl;
 	cout << "Enter the number of vertices (>2) " << endl;
 	// read the number of elements
 	cin >> n;
@@ -103,16 +103,20 @@ int farthest_point(int n, point2D *P)
 // function to calculate the furthest distance between any two 2D points
 {
 	float max_dist = 0;
+	int index = 0;
 	int i, j;
 	float dist;
 
 	for (i = 0; i < n - 1; i++)
 		for (j = 0; j < n; j++) {
-			dist = abs(P[i].x - P[j].x) + abs(P[i].y - P[j].y);
+			dist = (P[i].x - P[j].x)*(P[i].x - P[j].x) + (P[i].y - P[j].y)*(P[i].y - P[j].y);
 			if (max_dist < dist)
+			{
 				max_dist = dist;
+				index = i;
+			}
 		}
-	return max_dist;
+	return index;
 }
 int nearest(int n, point2D *P, int A, bool *Visited)
 // function to calculate the nearest unvisited neighboring point
